@@ -7,34 +7,47 @@ var connection = mysql.createConnection({
     user: "root",
     password: '!Monique776',
     database: 'bamazonDB'
-});
+})
 
 connection.connect(function(err) {
     console.log("Connected as id: "+connection.threadId);
-});
+    start();
+})
 
 var start = function(){
-    inquirer.prompt([{
-        name: "ID name",
+    inquirer.prompt({
+        name: "ProductID",
         type: "input",
-        message: "What is the name of the ID you would like to buy?",
-    },{
-        name: "Number of Units",
-        type: "input",
-        message: "How many units would you like tp buy?",
-        validate: function(value){
-            if(isNaN(value)==false){
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }]).then(function(answer){
-        connection.query("INSERT INTO products SET ?",{
-            productName: answer.productName,
-            stockQuanity: answer.stockQuanity
-        },function(err,res){
-            start();
-        })
+        message: "What is your product ID number, you would like to purchase?"
+    }).then(function(answer){
+        if(answer.ProductID.toUpperCase()== "POST"){
+        //unitProduct();
+        } else {
+        //start();
+        }   
     })
+}
+var unitProduct = function(){
+    inquirer.prompt([{
+    name: "ProductUnits",
+    type: "input",
+    message: "How many product units would you like to buy?",
+    validate: function(value){
+        if(NaN(value)==false){
+            return true;
+        } else {
+            return false;
+        }
+    }
+}]).then(function(answer){
+    connection.query("INSERT INTO products SET ?" , {
+        productname:answer.product,
+        departmentname:answer.department,
+        price:answer.price,
+        stockquanity:answer.quanity
+},function(err,res){
+    console.log("Your order created successfully!");
+    start();
+     })
+ })
 }

@@ -1,4 +1,3 @@
-DROP DATABASE IF EXISTS bamazonDB;
 CREATE DATABASE bamazonDB;
 
 USE bamazonDB;
@@ -7,8 +6,8 @@ CREATE TABLE products (
 id INTEGER NOT NULL AUTO_INCREMENT,
 ProductName VARCHAR(75),
 DepartmentName VARCHAR(50) NOT NULL,
-Price INTEGER DEFAULT 0,
-StockQuanity INTEGER DEFAULT 0,
+Price DECIMAL,
+StockQuanity INTEGER,
 PRIMARY KEY (id)
 );
 
